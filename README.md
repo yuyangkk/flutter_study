@@ -1,6 +1,6 @@
 # flutter_study
 
-A new Flutter application.
+学习Flutter的组件
 
 ## Getting Started
 
