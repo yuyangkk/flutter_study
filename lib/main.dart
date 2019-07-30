@@ -44,85 +44,89 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FadeAnimationPage(title: 'FadePage'),
-                  ),
-                );
-              },
-              child: Text('Fade_Animation'),
-            ),
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignaturePage(title: 'SignaturePage'),
-                  ),
-                );
-              },
-              child: Text('signature_painter'),
-            ),
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HttpDemoPage(),
-                  ),
-                );
-              },
-              child: Text('http_demo'),
-            ),
+        child: Scrollbar(
+          child: SingleChildScrollView(
 
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ISOLateDemoPage(),
-                  ),
-                );
-              },
-              child: Text('isolate_demo'),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            FadeAnimationPage(title: 'FadePage'),
+                      ),
+                    );
+                  },
+                  child: Text('Fade_Animation'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SignaturePage(title: 'SignaturePage'),
+                      ),
+                    );
+                  },
+                  child: Text('signature_painter'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HttpDemoPage(),
+                      ),
+                    );
+                  },
+                  child: Text('http_demo'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ISOLateDemoPage(),
+                      ),
+                    );
+                  },
+                  child: Text('isolate_demo'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => InputDecorationDemoPage(),
+                      ),
+                    );
+                  },
+                  child: Text('InputDecorationDemoPage'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TabBarPageDemo(),
+                      ),
+                    );
+                  },
+                  child: Text('TabBarPageDemo'),
+                ),
+              ],
             ),
-
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => InputDecorationDemoPage(),
-                  ),
-                );
-              },
-              child: Text('InputDecorationDemoPage'),
-            ),
-
-            SizedBox(height: 5),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TabBarPageDemo(),
-                  ),
-                );
-              },
-              child: Text('TabBarPageDemo'),
-            ),
-          ],
+          ),
         ),
       ),
     );
