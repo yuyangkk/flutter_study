@@ -24,13 +24,14 @@ class _TabBarPageDemoState extends State<TabBarPageDemo>
     return Scaffold(
       appBar: AppBar(
         title: Text('TabBarDemo'),
+        elevation: 0,
       ),
       body: Column(
         children: <Widget>[
           Container(
             color: Colors.blue,
             child: TabBar(
-              tabs: _tabs.map((text) => Tab(text: text + '的内容')).toList(),
+              tabs: _tabs.map((text) => Tab(text: text)).toList(),
               controller: this._controller,
             ),
           ),
@@ -39,7 +40,7 @@ class _TabBarPageDemoState extends State<TabBarPageDemo>
               color: Colors.grey,
               child: TabBarView(
                 children:
-                _tabs.map((text) => Container(child: Text(text))).toList(),
+                _tabs.map((text) => Container(child: Text(text + '的内容'))).toList(),
                 controller: this._controller,
               ),
             ),

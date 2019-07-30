@@ -5,6 +5,7 @@ import 'http_demo.dart';
 import 'isolate_demo.dart';
 import 'input_decoration_demo.dart';
 import 'tabbar_demo.dart';
+import 'drawer_demo.dart';
 
 void main() => runApp(SampleApp());
 
@@ -46,7 +47,6 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Scrollbar(
           child: SingleChildScrollView(
-
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -123,6 +123,18 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   child: Text('TabBarPageDemo'),
+                ),
+                SizedBox(height: 5),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DrawerPageDemo(),
+                      ),
+                    );
+                  },
+                  child: Text('DrawerPageDemo'),
                 ),
               ],
             ),
