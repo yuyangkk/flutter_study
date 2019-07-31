@@ -6,6 +6,7 @@ import 'isolate_demo.dart';
 import 'input_decoration_demo.dart';
 import 'tabbar_demo.dart';
 import 'drawer_demo.dart';
+import 'push_response.dart';
 
 void main() => runApp(SampleApp());
 
@@ -37,6 +38,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void _pushNavigatorResponse(BuildContext cxt) async {
+    String response = await Navigator.push(
+      cxt,
+      MaterialPageRoute(
+        builder: (cxt) => NavigatorResponsePage(),
+      ),
+    );
+
+    Scaffold.of(cxt).showSnackBar(
+      SnackBar(
+        content: Text(response),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,102 +60,111 @@ class _HomePageState extends State<HomePage> {
         title: Text('Demo'),
       ),
       backgroundColor: Colors.white,
-      body: Center(
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            FadeAnimationPage(title: 'FadePage'),
-                      ),
-                    );
-                  },
-                  child: Text('Fade_Animation'),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FadeAnimationPage(title: 'FadePage'),
                 ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            SignaturePage(title: 'SignaturePage'),
-                      ),
-                    );
-                  },
-                  child: Text('signature_painter'),
-                ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HttpDemoPage(),
-                      ),
-                    );
-                  },
-                  child: Text('http_demo'),
-                ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ISOLateDemoPage(),
-                      ),
-                    );
-                  },
-                  child: Text('isolate_demo'),
-                ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => InputDecorationDemoPage(),
-                      ),
-                    );
-                  },
-                  child: Text('InputDecorationDemoPage'),
-                ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TabBarPageDemo(),
-                      ),
-                    );
-                  },
-                  child: Text('TabBarPageDemo'),
-                ),
-                SizedBox(height: 5),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DrawerPageDemo(),
-                      ),
-                    );
-                  },
-                  child: Text('DrawerPageDemo'),
-                ),
-              ],
-            ),
+              );
+            },
+            title: Text('Fade_Animation'),
           ),
-        ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignaturePage(title: 'SignaturePage'),
+                ),
+              );
+            },
+            title: Text('signature_painter'),
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HttpDemoPage(),
+                ),
+              );
+            },
+            title: Text('http_demo'),
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ISOLateDemoPage(),
+                ),
+              );
+            },
+            title: Text('isolate_demo'),
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InputDecorationDemoPage(),
+                ),
+              );
+            },
+            title: Text('InputDecorationDemoPage'),
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TabBarPageDemo(),
+                ),
+              );
+            },
+            title: Text('TabBarPageDemo'),
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DrawerPageDemo(),
+                ),
+              );
+            },
+            title: Text('DrawerPageDemo'),
+          ),
+          Divider(height: 1.0,),
+
+          Builder(
+            builder: (BuildContext cxt) {
+              return ListTile(
+                onTap: () {
+                  _pushNavigatorResponse(cxt);
+                },
+                title: Text('NavigatorResponseDemo'),
+              );
+            },
+          ),
+          Divider(height: 1.0,),
+        ],
       ),
     );
   }
