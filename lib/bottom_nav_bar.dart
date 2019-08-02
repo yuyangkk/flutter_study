@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'drawer_demo.dart';
-import 'signature_painter_page.dart';
 
 class BottomBarPageDemo extends StatefulWidget {
   @override
@@ -8,7 +6,6 @@ class BottomBarPageDemo extends StatefulWidget {
 }
 
 class _BottomBarPageDemoState extends State<BottomBarPageDemo> {
-
   PageController _controller;
   int _currentIndex = 0;
 
@@ -16,19 +13,30 @@ class _BottomBarPageDemoState extends State<BottomBarPageDemo> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     _controller = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("BottomBarPageDemo"),
+      ),
       body: PageView(
         children: <Widget>[
-          DrawerPageDemo(),
-          SignaturePage(),
+          Container(
+            child: Text('home'),
+          ),
+          Container(
+            child: Text('account'),
+          )
         ],
         controller: _controller,
+        onPageChanged: (int index){
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
@@ -36,12 +44,39 @@ class _BottomBarPageDemoState extends State<BottomBarPageDemo> {
           // mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            IconButton(icon: Icon(Icons.home), onPressed: (){},),
-            IconButton(icon: Icon(Icons.account_box), onPressed: (){},)
+            Expanded(
+              child: IconButton(
+                icon: Icon(Icons.home, color: _currentIndex == 0 ? Colors.blue : Colors.black,),
+                onPressed: () {
+                  setState(() {
+                    _currentIndex = 0;
+                    _controller.animateToPage(_currentIndex, curve: Curves.ease, duration: Duration(milliseconds: 200));
+                  });
+                },
+              ),
+              flex: 1,
+            ),
+            Expanded(
+              child: SizedBox(),
+              flex: 1,
+            ),
+            Expanded(
+              child: IconButton(
+                icon: Icon(Icons.account_box, color: _currentIndex == 1 ? Colors.blue : Colors.black,),
+                onPressed: () {
+                  setState(() {
+                    _currentIndex = 1;
+                    _controller.animateToPage(_currentIndex, curve: Curves.ease, duration: Duration(milliseconds: 200));
+                  });
+                },
+              ),
+              flex: 1,
+            ),
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, // flatingActionButton 的位置
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.centerDocked, // flatingActionButton 的位置
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
