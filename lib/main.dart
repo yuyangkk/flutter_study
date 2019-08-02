@@ -7,6 +7,7 @@ import 'input_decoration_demo.dart';
 import 'tabbar_demo.dart';
 import 'drawer_demo.dart';
 import 'push_response.dart';
+import 'bottom_nav_bar.dart';
 
 void main() => runApp(SampleApp());
 
@@ -162,6 +163,19 @@ class _HomePageState extends State<HomePage> {
                 title: Text('NavigatorResponseDemo'),
               );
             },
+          ),
+          Divider(height: 1.0,),
+
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BottomBarPageDemo(),
+                ),
+              );
+            },
+            title: Text('BottomBarPageDemo'),
           ),
           Divider(height: 1.0,),
         ],
