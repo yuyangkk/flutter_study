@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/hv_scrollview.dart';
 import 'signature_painter_page.dart';
 import 'fade_animation.dart';
 import 'http_demo.dart';
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    Scaffold.of(cxt).showSnackBar(
+    ScaffoldMessenger.of(cxt).showSnackBar(
       SnackBar(
         content: Text(response),
       ),
@@ -61,36 +62,29 @@ class _HomePageState extends State<HomePage> {
         title: Text('Demo'),
       ),
       backgroundColor: Colors.white,
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FadeAnimationPage(title: 'FadePage'),
-                ),
-              );
-            },
-            title: Text('Fade_Animation'),
-          ),
-          Divider(height: 1.0,),
-
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SignaturePage(title: 'SignaturePage'),
-                ),
-              );
-            },
-            title: Text('signature_painter'),
-          ),
-          Divider(height: 1.0,),
-
-          ListTile(
-            onTap: () {
+      body: Wrap(
+        spacing: 5,
+        children: [
+          ElevatedButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FadeAnimationPage(title: 'FadePage'),
+              ),
+            );
+          }, child: Text('Fade_Animation'),),
+          
+          ElevatedButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignaturePage(title: 'SignaturePage'),
+              ),
+            );
+          }, child: Text('signature_painter')),
+          
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -98,12 +92,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('http_demo'),
+            child: Text('http_demo'),
           ),
-          Divider(height: 1.0,),
 
-          ListTile(
-            onTap: () {
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -111,12 +104,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('isolate_demo'),
+            child: Text('isolate_demo'),
           ),
-          Divider(height: 1.0,),
 
-          ListTile(
-            onTap: () {
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -124,12 +116,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('InputDecorationDemoPage'),
+            child: Text('InputDecorationDemoPage'),
           ),
-          Divider(height: 1.0,),
 
-          ListTile(
-            onTap: () {
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -137,12 +128,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('TabBarPageDemo'),
+            child: Text('TabBarPageDemo'),
           ),
-          Divider(height: 1.0,),
 
-          ListTile(
-            onTap: () {
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -150,24 +140,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('DrawerPageDemo'),
+            child: Text('DrawerPageDemo'),
           ),
-          Divider(height: 1.0,),
 
           Builder(
             builder: (BuildContext cxt) {
-              return ListTile(
-                onTap: () {
+              return ElevatedButton(
+                onPressed: () {
                   _pushNavigatorResponse(cxt);
                 },
-                title: Text('NavigatorResponseDemo'),
+                child: Text('NavigatorResponseDemo'),
               );
             },
           ),
-          Divider(height: 1.0,),
 
-          ListTile(
-            onTap: () {
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -175,9 +163,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            title: Text('BottomBarPageDemo'),
+            child: Text('BottomBarPageDemo'),
           ),
-          Divider(height: 1.0,),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HorizontalVerticalScrollView(),
+                ),
+              );
+            },
+            child: Text('仿支付宝自选列表demo'),
+          ),
         ],
       ),
     );

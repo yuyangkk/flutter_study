@@ -12,7 +12,7 @@ class _NavigatorResponsePageState extends State<NavigatorResponsePage> {
       appBar: AppBar(
         title: Text('导航返回数据'),
       ),
-      body: RaisedButton(
+      body: ElevatedButton(
         onPressed: (){
           Navigator.pop(context, '返回的数据');
         },
