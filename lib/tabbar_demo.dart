@@ -8,7 +8,7 @@ class TabBarPageDemo extends StatefulWidget {
 class _TabBarPageDemoState extends State<TabBarPageDemo>
     with SingleTickerProviderStateMixin {
   List _tabs = ['奔驰', '宝马', '奥迪'];
-  TabController _controller; // 想要实现Tabbar和TabBarView联动，需要让两个widget使用同一个TabController
+  late TabController _controller; // 想要实现Tabbar和TabBarView联动，需要让两个widget使用同一个TabController
 
   @override
   void initState() {

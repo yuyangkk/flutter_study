@@ -13,7 +13,7 @@ class _HttpDemoPageState extends State<HttpDemoPage> {
 
   void _loadData() async {
     String dataUrl = "https://jsonplaceholder.typicode.com/posts";
-    http.Response response = await http.get(dataUrl);
+    http.Response response = await http.get(Uri.parse(dataUrl));
     setState(() {
       _widgets = json.decode(response.body);
     });

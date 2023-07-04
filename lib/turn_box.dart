@@ -4,7 +4,6 @@
 /// Description:
 ///
 
-
 import 'package:flutter/material.dart';
 
 class TurnBoxRoute extends StatefulWidget {
@@ -17,21 +16,26 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: Column(
         children: <Widget>[
           TurnBox(
             turns: _turns,
             speed: 500,
-            child: Icon(Icons.refresh, size: 50,),
+            child: Icon(
+              Icons.refresh,
+              size: 50,
+            ),
           ),
           TurnBox(
             turns: _turns,
             speed: 1000,
-            child: Icon(Icons.refresh, size: 150.0,),
+            child: Icon(
+              Icons.refresh,
+              size: 150.0,
+            ),
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("顺时针旋转1/5圈"),
             onPressed: () {
               setState(() {
@@ -39,7 +43,7 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
               });
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text("逆时针旋转1/5圈"),
             onPressed: () {
               setState(() {
@@ -54,33 +58,29 @@ class _TurnBoxRouteState extends State<TurnBoxRoute> {
 }
 
 class TurnBox extends StatefulWidget {
-  const TurnBox({
-    Key key,
-    this.turns = .0, //旋转的“圈”数,一圈为360度，如0.25圈即90度
-    this.speed = 200, //过渡动画执行的总时长
-    this.child
-  }) :super(key: key);
+  const TurnBox(
+      {Key? key,
+      this.turns = .0, //旋转的“圈”数,一圈为360度，如0.25圈即90度
+      this.speed = 200, //过渡动画执行的总时长
+      this.child})
+      : super(key: key);
 
   final double turns;
   final int speed;
-  final Widget child;
+  final Widget? child;
 
   @override
   _TurnBoxState createState() => new _TurnBoxState();
 }
 
-class _TurnBoxState extends State<TurnBox>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = new AnimationController(
-        vsync: this,
-        lowerBound: -double.infinity,
-        upperBound: double.infinity
-    );
+        vsync: this, lowerBound: -double.infinity, upperBound: double.infinity);
     _controller.value = widget.turns;
   }
 
@@ -105,7 +105,7 @@ class _TurnBoxState extends State<TurnBox>
     if (oldWidget.turns != widget.turns) {
       _controller.animateTo(
         widget.turns,
-        duration: Duration(milliseconds: widget.speed??200),
+        duration: Duration(milliseconds: widget.speed),
         curve: Curves.easeOut,
       );
     }

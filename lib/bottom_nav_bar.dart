@@ -6,7 +6,7 @@ class BottomBarPageDemo extends StatefulWidget {
 }
 
 class _BottomBarPageDemoState extends State<BottomBarPageDemo> {
-  PageController _controller;
+  late PageController _controller;
   int _currentIndex = 0;
 
   @override

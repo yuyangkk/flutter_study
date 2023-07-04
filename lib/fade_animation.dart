@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FadeAnimationPage extends StatefulWidget {
-  FadeAnimationPage({Key key, this.title}) : super(key: key);
+  FadeAnimationPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -9,14 +9,16 @@ class FadeAnimationPage extends StatefulWidget {
   _FadeAnimationPageState createState() => _FadeAnimationPageState();
 }
 
-class _FadeAnimationPageState extends State<FadeAnimationPage> with TickerProviderStateMixin{
-  AnimationController controller;
-  CurvedAnimation curve;
+class _FadeAnimationPageState extends State<FadeAnimationPage>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  late CurvedAnimation curve;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2000));
     curve = CurvedAnimation(parent: controller, curve: Curves.easeIn);
   }
 
@@ -37,7 +39,7 @@ class _FadeAnimationPageState extends State<FadeAnimationPage> with TickerProvid
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           controller.forward();
         },
         tooltip: 'fade',

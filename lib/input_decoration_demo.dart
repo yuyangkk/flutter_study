@@ -11,7 +11,7 @@ class InputDecorationDemoPage extends StatefulWidget {
 }
 
 class _InputDecorationDemoPageState extends State<InputDecorationDemoPage> {
-  String _errorText;
+  String? _errorText;
 
   @override
   void initState() {
@@ -28,9 +28,9 @@ class _InputDecorationDemoPageState extends State<InputDecorationDemoPage> {
         child: TextField(
           onSubmitted: (String text) {
             setState(() {
-              if(isEmail(text)){
+              if (isEmail(text)) {
                 _errorText = null;
-              }else{
+              } else {
                 _errorText = 'Error:This is not an email';
               }
             });
@@ -44,8 +44,9 @@ class _InputDecorationDemoPageState extends State<InputDecorationDemoPage> {
     );
   }
 
-  bool isEmail(String text){
-    String emailRegexp = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  bool isEmail(String text) {
+    String emailRegexp =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regExp = RegExp(emailRegexp);
     return regExp.hasMatch(text);
   }

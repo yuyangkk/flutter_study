@@ -7,7 +7,7 @@
 import 'package:flutter/material.dart';
 
 class HorizontalVerticalScrollView extends StatefulWidget {
-  const HorizontalVerticalScrollView({Key key}) : super(key: key);
+  const HorizontalVerticalScrollView({Key? key}) : super(key: key);
 
   @override
   _HorizontalVerticalScrollViewState createState() =>
@@ -48,12 +48,6 @@ class _HorizontalVerticalScrollViewState
               return Container(
                 child: Text('哈哈哈哈哈'),
               );
-              return CustomListTile(
-                left: Text('左标题$index'),
-                leftFlex: 1,
-                rightFlex: 1,
-                scrollController: _hScrollController,
-              );
             },
             childCount: 30,
           ))
@@ -93,7 +87,7 @@ class QTabBarSliverPersistentHeader extends SliverPersistentHeaderDelegate {
 
 class CustomListTile extends StatefulWidget {
   CustomListTile(
-      {Key key,
+      {Key? key,
       this.left,
       this.leftFlex = 1,
       this.rights,
@@ -101,11 +95,11 @@ class CustomListTile extends StatefulWidget {
       this.scrollController})
       : super(key: key);
 
-  final Widget left;
-  final List<Widget> rights;
+  final Widget? left;
+  final List<Widget>? rights;
   final int leftFlex;
   final int rightFlex;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   @override
   _CustomListTileState createState() => _CustomListTileState();

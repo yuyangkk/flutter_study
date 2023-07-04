@@ -8,7 +8,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/turn_box.dart';
 
-
 class GradientCircularProgressRoute extends StatefulWidget {
   @override
   GradientCircularProgressRouteState createState() {
@@ -18,12 +17,13 @@ class GradientCircularProgressRoute extends StatefulWidget {
 
 class GradientCircularProgressRouteState
     extends State<GradientCircularProgressRoute> with TickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
     bool isForward = true;
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.forward) {
@@ -57,7 +57,7 @@ class GradientCircularProgressRouteState
           children: <Widget>[
             AnimatedBuilder(
               animation: _animationController,
-              builder: (BuildContext context, Widget child) {
+              builder: (BuildContext context, Widget? child) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Column(
@@ -91,8 +91,8 @@ class GradientCircularProgressRouteState
                             strokeWidth: 5.0,
                             strokeCapRound: true,
                             value: CurvedAnimation(
-                                parent: _animationController,
-                                curve: Curves.decelerate)
+                                    parent: _animationController,
+                                    curve: Curves.decelerate)
                                 .value,
                           ),
                           TurnBox(
@@ -102,17 +102,17 @@ class GradientCircularProgressRouteState
                                 radius: 50.0,
                                 strokeWidth: 5.0,
                                 strokeCapRound: true,
-                                backgroundColor: Colors.red[50],
+                                backgroundColor: Colors.red[50]!,
                                 totalAngle: 1.5 * pi,
                                 value: CurvedAnimation(
-                                    parent: _animationController,
-                                    curve: Curves.ease)
+                                        parent: _animationController,
+                                        curve: Curves.ease)
                                     .value),
                           ),
                           RotatedBox(
                             quarterTurns: 1,
                             child: GradientCircularProgressIndicator(
-                                colors: [Colors.blue[700], Colors.blue[200]],
+                                colors: [Colors.blue[700]!, Colors.blue[200]!],
                                 radius: 50.0,
                                 strokeWidth: 3.0,
                                 strokeCapRound: true,
@@ -124,7 +124,7 @@ class GradientCircularProgressRouteState
                               Colors.red,
                               Colors.amber,
                               Colors.cyan,
-                              Colors.green[200],
+                              Colors.green[200]!,
                               Colors.blue,
                               Colors.red
                             ],
@@ -136,7 +136,7 @@ class GradientCircularProgressRouteState
                         ],
                       ),
                       GradientCircularProgressIndicator(
-                        colors: [Colors.blue[700], Colors.blue[200]],
+                        colors: [Colors.blue[700]!, Colors.blue[200]!],
                         radius: 100.0,
                         strokeWidth: 20.0,
                         value: _animationController.value,
@@ -145,7 +145,7 @@ class GradientCircularProgressRouteState
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: GradientCircularProgressIndicator(
-                          colors: [Colors.blue[700], Colors.blue[300]],
+                          colors: [Colors.blue[700]!, Colors.blue[300]!],
                           radius: 100.0,
                           strokeWidth: 20.0,
                           value: _animationController.value,
@@ -164,7 +164,7 @@ class GradientCircularProgressRouteState
                               child: TurnBox(
                                 turns: .75,
                                 child: GradientCircularProgressIndicator(
-                                  colors: [Colors.teal, Colors.cyan[500]],
+                                  colors: [Colors.teal, Colors.cyan[500]!],
                                   radius: 100.0,
                                   strokeWidth: 8.0,
                                   value: _animationController.value,
@@ -188,7 +188,7 @@ class GradientCircularProgressRouteState
                               child: TurnBox(
                                 turns: .75,
                                 child: GradientCircularProgressIndicator(
-                                  colors: [Colors.teal, Colors.cyan[500]],
+                                  colors: [Colors.teal, Colors.cyan[500]!],
                                   radius: 100.0,
                                   strokeWidth: 8.0,
                                   value: _animationController.value,
@@ -222,17 +222,16 @@ class GradientCircularProgressRouteState
   }
 }
 
-
 class GradientCircularProgressIndicator extends StatelessWidget {
   GradientCircularProgressIndicator(
       {this.strokeWidth = 2.0,
-      @required this.radius,
-      @required this.colors,
+      required this.radius,
+      required this.colors,
       this.stops,
       this.strokeCapRound = false,
       this.backgroundColor = const Color(0xFFEEEEEE),
       this.totalAngle = 2 * pi,
-      this.value});
+      this.value = 0});
 
   //粗细
   final double strokeWidth;
@@ -256,7 +255,7 @@ class GradientCircularProgressIndicator extends StatelessWidget {
   final List<Color> colors;
 
   // 渐变色的终点，对应colors属性
-  final List<double> stops;
+  final List<double>? stops;
 
   @override
   Widget build(BuildContext context) {
@@ -267,10 +266,9 @@ class GradientCircularProgressIndicator extends StatelessWidget {
       _offset = asin(strokeWidth / (radius * 2 - strokeWidth));
     }
     var _colors = colors;
-    if (_colors == null) {
-      Color color = Theme
-          .of(context)
-          .accentColor;
+    // ignore_
+    if (_colors.isEmpty) {
+      Color color = Theme.of(context).primaryColor;
       _colors = [color, color];
     }
 
@@ -286,24 +284,22 @@ class GradientCircularProgressIndicator extends StatelessWidget {
             total: totalAngle,
             radius: radius,
             colors: _colors,
-          )
-      ),
+          )),
     );
   }
 }
 
 //实现画笔
 class _GradientCircularProgressPainter extends CustomPainter {
-  _GradientCircularProgressPainter({
-    this.strokeWidth: 10.0,
-    this.strokeCapRound: false,
-    this.backgroundColor = const Color(0xFFEEEEEE),
-    this.radius,
-    this.total = 2 * pi,
-    @required this.colors,
-    this.stops,
-    this.value
-  });
+  _GradientCircularProgressPainter(
+      {this.strokeWidth = 10.0,
+      this.strokeCapRound = false,
+      this.backgroundColor = const Color(0xFFEEEEEE),
+      this.radius,
+      this.total = 2 * pi,
+      required this.colors,
+      this.stops,
+      this.value = 0});
 
   final double strokeWidth;
   final bool strokeCapRound;
@@ -311,27 +307,25 @@ class _GradientCircularProgressPainter extends CustomPainter {
   final Color backgroundColor;
   final List<Color> colors;
   final double total;
-  final double radius;
-  final List<double> stops;
+  final double? radius;
+  final List<double>? stops;
 
   @override
   void paint(Canvas canvas, Size size) {
     if (radius != null) {
-      size = Size.fromRadius(radius);
+      size = Size.fromRadius(radius!);
     }
     double _offset = strokeWidth / 2.0;
-    double _value = (value ?? .0);
+    double _value = value;
     _value = _value.clamp(.0, 1.0) * total;
     double _start = .0;
 
     if (strokeCapRound) {
-      _start = asin(strokeWidth/ (size.width - strokeWidth));
+      _start = asin(strokeWidth / (size.width - strokeWidth));
     }
 
-    Rect rect = Offset(_offset, _offset) & Size(
-        size.width - strokeWidth,
-        size.height - strokeWidth
-    );
+    Rect rect = Offset(_offset, _offset) &
+        Size(size.width - strokeWidth, size.height - strokeWidth);
 
     var paint = Paint()
       ..strokeCap = strokeCapRound ? StrokeCap.round : StrokeCap.butt
@@ -342,13 +336,7 @@ class _GradientCircularProgressPainter extends CustomPainter {
     // 先画背景
     if (backgroundColor != Colors.transparent) {
       paint.color = backgroundColor;
-      canvas.drawArc(
-          rect,
-          _start,
-          total,
-          false,
-          paint
-      );
+      canvas.drawArc(rect, _start, total, false, paint);
     }
 
     // 再画前景，应用渐变
@@ -360,17 +348,10 @@ class _GradientCircularProgressPainter extends CustomPainter {
         stops: stops,
       ).createShader(rect);
 
-      canvas.drawArc(
-          rect,
-          _start,
-          _value,
-          false,
-          paint
-      );
+      canvas.drawArc(rect, _start, _value, false, paint);
     }
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-
 }

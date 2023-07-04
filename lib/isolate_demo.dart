@@ -53,14 +53,15 @@ class _ISOLateDemoPageState extends State<ISOLateDemoPage> {
     }
   }
 
-  loadData() async{
+  loadData() async {
     ReceivePort receivePort = ReceivePort();
     await Isolate.spawn(dataLoader, receivePort.sendPort);
 
     // The 'echo' isolate sends its SendPort as the first message
     SendPort sendPort = await receivePort.first;
 
-    List msg = await sendReceive(sendPort, 'https://jsonplaceholder.typicode.com/posts');
+    List msg = await sendReceive(
+        sendPort, 'https://jsonplaceholder.typicode.com/posts');
 
     setState(() {
       widgets = msg;
@@ -68,31 +69,29 @@ class _ISOLateDemoPageState extends State<ISOLateDemoPage> {
   }
 
   //the entry point for the isolate
-  static dataLoader(SendPort sendPort) async{
+  static dataLoader(SendPort sendPort) async {
     // Open the ReceivePort for incoming messages.
     ReceivePort port = ReceivePort();
 
     // Notify any other isolates what port this isolate listens to.
     sendPort.send(port.sendPort);
 
-    await for (var msg in port){
+    await for (var msg in port) {
       String data = msg[0];
       SendPort replyTo = msg[1];
 
       String dataUrl = data;
-      http.Response response = await http.get(dataUrl);
+      http.Response response = await http.get(Uri.parse(dataUrl));
       // Lots of JSON to parse
       replyTo.send(json.decode(response.body));
     }
   }
-  
+
   Future sendReceive(SendPort port, msg) {
     ReceivePort response = ReceivePort();
-    port.send([msg,response.sendPort]);
+    port.send([msg, response.sendPort]);
     return response.first;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
